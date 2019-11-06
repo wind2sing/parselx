@@ -5,7 +5,7 @@ NAME = "parselx"
 DESCRIPTION = (
     "Enhanced version of parsel, extracting data from HTML and XML using complex rules"
 )
-URL = "https://github.com/wooddance/aCrawler"
+URL = "https://github.com/wooddance/parselx"
 EMAIL = "zireael.me@gmail.com"
 AUTHOR = "wooddance"
 VERSION = "0.0.1"
