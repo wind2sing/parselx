@@ -1,14 +1,17 @@
 from .utils import parse_query, partial
-from .x import X
+from .x_instance import x
 
 
-def _parsel_one(sel, query: str):
+def _parsel_one(sel, query: str, **kwargs):
     """Use parsel to extract original values"""
     if not isinstance(query, str):
         raise TypeError(f"Query should be string: {query}")
     q = parse_query(query)
     lang = q["lang"]
-    val = getattr(getattr(sel, q["lang"])(q["query"]), q["meth"])()
+    if lang == "xpath":
+        val = getattr(getattr(sel, lang)(q["query"], **kwargs), q["meth"])()
+    else:
+        val = getattr(getattr(sel, lang)(q["query"]), q["meth"])()
     return val
 
 
@@ -20,21 +23,21 @@ def _process_by_funcs(val, funcs=None):
             li = func.split(":", 1)
             func_name = li[0]
             args = li[1].split(",") if len(li) == 2 else []
-            func = partial(X.functions[func_name], *args, new_args_before=True)
+            func = partial(x.filters[func_name], *args, new_args_before=True)
         val = func(val)
     return val
 
 
-def process(sel, queries):
+def process(sel, queries, **kwargs):
     if isinstance(queries, dict):
-        return {k: process(sel, v) for k, v in queries.items()}
+        return {k: process(sel, v, **kwargs) for k, v in queries.items()}
 
     if isinstance(queries, list):
         query = queries[0]
         funcs = queries[1:]
-        val = process(sel, query)
+        val = process(sel, query, **kwargs)
         return _process_by_funcs(val, funcs)
     else:
         query = queries
-        return _parsel_one(sel, query)
+        return _parsel_one(sel, query, **kwargs)
 
