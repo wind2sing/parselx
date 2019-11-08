@@ -1,2 +1,2 @@
 from .selector import SelectorX, SelectorListX
-from .x import X
+from .x_instance import x

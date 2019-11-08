@@ -9,7 +9,7 @@ def parse_query(query: str):
         meth = "get"
 
     lang = "css"
-    if query.startswith("$"):
+    if query.startswith("_"):
         query = query[1:].strip()
         lang = "xpath"
 
