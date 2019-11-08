@@ -2,25 +2,27 @@ import re
 from datetime import datetime, date
 
 from .exceptions import DropFieldError, DropItemError
+from .x_filters import filters as default_filters
 
 
-class X:
-    """ X are used to spawn field processing functions.
+class x:
+    """ x are used to spawn field processing functions.
     """
 
-    functions = {}
+    filters = default_filters
 
     @classmethod
-    def register(cls):
+    def register(cls, name=None):
         def decorator(target):
-            cls.functions[target.__name__] = target
+            key = name or target.__name__
+            cls.filters[key] = target
             return target
 
         return decorator
 
     @classmethod
     def use(cls, func_dict):
-        cls.functions.update(func_dict)
+        cls.filters.update(func_dict)
 
     @staticmethod
     def first():
@@ -220,3 +222,4 @@ class X:
                     return None
 
         return _f
+
