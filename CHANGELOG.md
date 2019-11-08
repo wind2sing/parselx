@@ -2,6 +2,26 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.2](https://github.com/wooddance/parselx/compare/v0.0.1...v0.0.2) (2019-11-08)
+
+
+### Bug Fixes
+
+* xpath signal:'_' ([9573edc](https://github.com/wooddance/parselx/commit/9573edc))
+
+
+### Features
+
+* support xpath vars ([65a5409](https://github.com/wooddance/parselx/commit/65a5409))
+* x_instance & filters ([cb2aa0b](https://github.com/wooddance/parselx/commit/cb2aa0b))
+
+
+### Tests
+
+* sel, utils, x ([6c11d18](https://github.com/wooddance/parselx/commit/6c11d18))
+
+
+
 ### 0.0.1 (2019-11-06)
 
 
