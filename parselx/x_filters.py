@@ -1,16 +1,128 @@
+import re
 from collections.abc import Iterable
 
+import humanfriendly
+from dateutil.parser import parse as dateparse
 
-def reverse(val):
+from .utils import args_convert
+
+# basics
+
+
+def _default(val, default="", func_name="bool"):
+    func = filters[func_name]
+    return val if func(val) else default
+
+
+# string operations
+
+
+def _reverse(val):
     if isinstance(val, Iterable):
         return val[::-1]
     return val
 
 
-def strip(val):
+def _strip(val):
     if isinstance(val, str):
         return val.strip()
     return val
 
 
-filters = {"reverse": reverse, "strip": strip}
+def _replace(val, old, new, count=-1):
+    count = int(count)
+    return val.replace(old, new, count)
+
+
+def _re(val, regex, group=0):
+    group = int(group)
+    match = re.search(regex, val or "")
+    if match:
+        return match.group(group)
+    return val
+
+
+# iterable operations
+
+
+def _get(vals, index=0):
+    index = int(index)
+    return vals[index] if len(vals) > index else None
+
+
+def _slice(vals, start, stop=-1, step=1):
+    start, stop, step = args_convert(start, stop, step, converter=int)
+    to_reverse = False
+    if step < 0:
+        to_reverse = True
+        step = -step
+    vals = vals[slice(start, stop, step)]
+    if to_reverse:
+        vals = vals[::-1]
+    return vals
+
+
+def _map(vals, func_name, *args):
+    func = filters[func_name]
+    return [func(val, *args) for val in vals]
+
+
+def _filter(vals, func_name, *args):
+    func = filters[func_name]
+    return [val for val in vals if func(val, *args)]
+
+
+# type convert
+
+
+def _int(val):
+    if val:
+        match = re.search(r"\d+", val)
+        if match:
+            return int(match.group())
+    return val
+
+
+def _float(val):
+    if val:
+        match = re.search(r"[+-]?([0-9]*[.])?[0-9]+", val)
+        if match:
+            return float(match.group())
+    return val
+
+
+def _bool(val):
+    return bool(val)
+
+
+# parsers for human
+
+
+def _date(val):
+    return dateparse(val)
+
+
+def _size(val):
+    return humanfriendly.parse_size(val or "", binary=True)
+
+
+filters = {
+    "default": _default,
+    #
+    "reverse": _reverse,
+    "strip": _strip,
+    "replace": _replace,
+    "re": _re,
+    #
+    "get": _get,
+    "slice": _slice,
+    "map": _map,
+    "filter": _filter,
+    #
+    "int": _int,
+    "float": _float,
+    "bool": _bool,
+    #
+    "date": _date,
+    "size": _size,
+}
