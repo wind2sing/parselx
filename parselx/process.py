@@ -1,5 +1,5 @@
 from .utils import parse_query, enhanced_css
-from .x_instance import x
+from .x_processors import x
 
 
 def _parsel_one(sel, query: str, **kwargs):
