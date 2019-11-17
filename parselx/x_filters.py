@@ -50,16 +50,12 @@ def _get(vals, index=0):
     return vals[index] if len(vals) > index else None
 
 
-def _slice(vals, start, stop=-1, step=1):
-    start, stop, step = args_convert(start, stop, step, converter=int)
-    to_reverse = False
-    if step < 0:
-        to_reverse = True
-        step = -step
-    vals = vals[slice(start, stop, step)]
-    if to_reverse:
-        vals = vals[::-1]
-    return vals
+def _slice(vals, start, stop=None, step=None):
+    start, stop, step = args_convert(
+        start, stop, step, converter=int, validator=lambda v: v is not None
+    )
+
+    return vals[slice(start, stop, step)]
 
 
 def _map(vals, func_name, *args):

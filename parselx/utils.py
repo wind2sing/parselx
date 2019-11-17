@@ -77,6 +77,6 @@ def partial(func, *args, new_args_before=False, **keywords):
     return newfunc
 
 
-def args_convert(*args, converter=str):
-    return [converter(arg) for arg in args]
+def args_convert(*args, converter=str, validator=None):
+    return [converter(arg) if (validator and validator(arg)) else arg for arg in args]
 
