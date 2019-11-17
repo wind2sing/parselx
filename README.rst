@@ -28,20 +28,24 @@ Plus all the standard features of `parsel`
             </body>
             </html>""")
     >>>
-    >>> sel.g('h1::text')
+    >>> sel.g('h1')
     'Hello, Parselx!'
-    >>> sel.g('[ul li a::text]')
+    >>> sel.g('h1 | reverse')
+    '!xlesraP ,olleH'
+    >>> sel.g('[ul li a]')
     ['Link 1', 'Link 2']
-    >>> sel.g({'title':['h1::text', lambda s: s.upper()], 'links':'[a::attr(href)]'})
+    >>> sel.g({'title':['h1', lambda s: s.upper()], 'links':'[a @href]'})
     {'title': 'HELLO, PARSELX!', 'links': ['http://example.com', 'http://scrapy.org']}
+    >>> sel.g('[ul li a @href| map:slice,7,-4]')
+    ['example', 'scrapy']
+
 
 
 
 Installation
 ------------
 
-To install, simply use `pipenv <http://pipenv.org/>`_ (or pip):
 
 .. code-block:: bash
 
-   $ pipenv install parselx
+   $ pip install parselx

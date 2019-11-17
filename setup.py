@@ -8,8 +8,8 @@ DESCRIPTION = (
 URL = "https://github.com/wooddance/parselx"
 EMAIL = "zireael.me@gmail.com"
 AUTHOR = "wooddance"
-VERSION = "0.0.2"
-REQUIRED = ["parsel"]
+VERSION = "0.0.3"
+REQUIRED = ["parsel", "humanfriendly", "python-dateutil"]
 
 setup(
     name=NAME,

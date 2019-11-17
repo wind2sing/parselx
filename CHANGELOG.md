@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.3](https://github.com/wooddance/parselx/compare/v0.0.2...v0.0.3) (2019-11-17)
+
+
+### Bug Fixes
+
+* slice error ([b4311af](https://github.com/wooddance/parselx/commit/b4311af))
+
+
+### Features
+
+* basic filters ([7d4bfe6](https://github.com/wooddance/parselx/commit/7d4bfe6))
+* enhanced css ([45f45bd](https://github.com/wooddance/parselx/commit/45f45bd))
+* query support filters string ([914ef50](https://github.com/wooddance/parselx/commit/914ef50))
+* support divider in list ([68aa978](https://github.com/wooddance/parselx/commit/68aa978))
+
+
+
 ### [0.0.2](https://github.com/wooddance/parselx/compare/v0.0.1...v0.0.2) (2019-11-08)
 
 
