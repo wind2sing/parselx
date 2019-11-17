@@ -44,8 +44,21 @@ def _parse_filters(string: str) -> list:
             results.append({"name": name, "args": args})
     return results
 
-    q = {"query": query, "meth": meth, "lang": lang}
-    return q
+
+def enhanced_css(query):
+    match = re.search(r"(@[^ ]+)$", query)
+    if match:
+        attr = match.group(1)[1:]
+        query = re.sub(r"(@[^ ]+)$", "", query)
+    else:
+        attr = "text"
+    if attr == "text":
+        query += "::text"
+    elif attr == "html":
+        pass
+    else:
+        query += f"::attr({attr})"
+    return query
 
 
 def partial(func, *args, new_args_before=False, **keywords):
@@ -62,4 +75,8 @@ def partial(func, *args, new_args_before=False, **keywords):
     newfunc.args = args
     newfunc.keywords = keywords
     return newfunc
+
+
+def args_convert(*args, converter=str):
+    return [converter(arg) for arg in args]
 
