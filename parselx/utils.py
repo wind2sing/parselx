@@ -1,3 +1,6 @@
+import re
+
+
 def parse_query(query: str):
     """Parse the query to a dictionary"""
 
@@ -12,6 +15,34 @@ def parse_query(query: str):
     if query.startswith("_"):
         query = query[1:].strip()
         lang = "xpath"
+    filters = re.split(r"\s*\|(?!\=)\s*", query)
+    query = filters.pop(0)
+    q = {
+        "query": query,
+        "meth": meth,
+        "lang": lang,
+        "filters": _parse_filters("|".join(filters)),
+    }
+    return q
+
+
+def _parse_args(string):
+    args = []
+    regex = re.compile(r"\"([^\"]*)\"|'([^']*)'|([^ \t,]+)")
+    for match in re.finditer(regex, string):
+        args.append(match.group(3) or match.group(2) or match.group(1))
+    return args
+
+
+def _parse_filters(string: str) -> list:
+    results = []
+    if string:
+        for call in re.split(r" *\| *", string):
+            parts = call.split(":")
+            name = parts.pop(0)
+            args = _parse_args(":".join(parts))
+            results.append({"name": name, "args": args})
+    return results
 
     q = {"query": query, "meth": meth, "lang": lang}
     return q
