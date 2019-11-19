@@ -28,10 +28,10 @@ def process(sel, queries, **kwargs):
 
     if isinstance(queries, list):
         if should_divide(queries):
-            divider = queries.pop(0)
+            divider = queries[0]
             d_query = parse_query(divider)
             return [
-                process(sel, queries)
+                process(sel, queries[1:])
                 for sel in getattr(sel, d_query["lang"])(d_query["query"])
             ]
 
