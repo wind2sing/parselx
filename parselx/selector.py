@@ -47,7 +47,7 @@ class SelectorX(Selector):
         )
         self.vars = {}
         if isinstance(vars, dict):
-            self.vars = vars
+            self.vars = {k: v for k, v in vars.items() if isinstance(v, str)}
 
     def g(self, query, **kwargs):
         """
