@@ -15,21 +15,21 @@ html = """<html>
 
 def test_filters():
     sel = SelectorX(html)
-    assert sel.g(["h1::text", "reverse"]) == "!XlesraP ,olleH"
-    assert sel.g(["h2::text"]) == "   Blank   "
-    assert sel.g(["h2::text", "strip"]) == "Blank"
+    assert sel.g(["h1 | reverse"]) == "!XlesraP ,olleH"
+    assert sel.g(["h2"]) == "   Blank   "
+    assert sel.g(["h2 | strip"]) == "Blank"
 
 
 def test_methods():
     sel = SelectorX(html)
-    assert sel.g(["h2::text", x.strip()]) == "Blank"
-    assert sel.g(["[a::text]", x.first()]) == "Link 1"
+    assert sel.g(["h2 | strip",]) == "Blank"
+    assert sel.g(["[a | get]",]) == "Link 1"
 
 
 def test_use():
     sel = SelectorX(html)
     x.use({"cut": lambda s, length: s[: int(length)]})
-    assert sel.g(["h1::text", "cut:5"]) == "Hello"
+    assert sel.g(["h1 | cut:5"]) == "Hello"
 
 
 def test_register():
@@ -39,5 +39,5 @@ def test_register():
     def _(val):
         return int(val)
 
-    assert sel.g(["h3::text", "to_int"]) == 2000
+    assert sel.g(["h3 | to_int"]) == 2000
 

@@ -14,22 +14,19 @@ html = """<html>
 
 def test_get():
     sel = SelectorX(html)
-    assert sel.g("h1::text") == "Hello, ParselX!"
+    assert sel.g("h1") == "Hello, ParselX!"
     assert sel.g("_//h1/text()") == "Hello, ParselX!"
 
 
 def test_getall():
     sel = SelectorX(html)
-    assert sel.g("[ul li a::text]") == ["Link 1", "Link 2"]
+    assert sel.g("[ul li a]") == ["Link 1", "Link 2"]
     assert sel.g("[_//ul/li/a/text()]") == ["Link 1", "Link 2"]
 
 
 def test_list_style():
     sel = SelectorX(html)
-    assert (
-        sel.g(["h1::text", lambda s: s.upper(), lambda s: s.split(" ")[-1]])
-        == "PARSELX!"
-    )
+    assert sel.g(["h1", lambda s: s.upper(), lambda s: s.split(" ")[-1]]) == "PARSELX!"
 
 
 def test_vars():
