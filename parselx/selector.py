@@ -23,6 +23,8 @@ class SelectorX(Selector):
 
     ``type`` defines the selector type, it can be ``"html"``, ``"xml"`` or ``None`` (default).
     If ``type`` is ``None``, the selector defaults to ``"html"``.
+
+    ``vars`` are used to pass values for XPath variables in the XPath expression
     """
 
     selectorlist_cls = SelectorListX

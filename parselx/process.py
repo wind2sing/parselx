@@ -45,6 +45,9 @@ def process(sel, queries, **kwargs):
     if isinstance(queries, dict):
         return {k: process(sel, v, **kwargs) for k, v in queries.items()}
 
+    if callable(queries):
+        return queries()
+
     return _parsel_one(sel, queries, **kwargs)
 
 

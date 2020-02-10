@@ -8,8 +8,8 @@ Enhanced version of `parsel <https://parsel.readthedocs.io/en/latest/>`_, extrac
 Features
 --------
 
-* Magic `g` method, extract items by complex rules
-* Apply filters to a value, appended in rule
+* Magic `g` method: extract items by complex rules
+* Apply filters to a value
 * `x` instance: many helper methods and filters
 
 Plus all the standard features of `parsel`

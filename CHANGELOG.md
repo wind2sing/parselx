@@ -2,6 +2,27 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.4](https://github.com/wooddance/parselx/compare/v0.0.3...v0.0.4) (2020-02-10)
+
+
+### Bug Fixes
+
+* queries list slice error ([960a3fd](https://github.com/wooddance/parselx/commit/960a3fd))
+* vars accepts string ([e85b12c](https://github.com/wooddance/parselx/commit/e85b12c))
+
+
+### Features
+
+* list-rule supports scope ([237845c](https://github.com/wooddance/parselx/commit/237845c))
+
+
+### Tests
+
+* change parse results ([45539a5](https://github.com/wooddance/parselx/commit/45539a5))
+* selectorListX ([7330bce](https://github.com/wooddance/parselx/commit/7330bce))
+
+
+
 ### [0.0.3](https://github.com/wooddance/parselx/compare/v0.0.2...v0.0.3) (2019-11-17)
 
 

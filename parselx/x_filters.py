@@ -23,7 +23,13 @@ def _reverse(val):
     return val
 
 
-def _strip(val):
+def _strip(val: str, chars=None):
+    if isinstance(val, str):
+        return val.strip(chars)
+    return val
+
+
+def _trim(val: str):
     if isinstance(val, str):
         return val.strip()
     return val
@@ -107,6 +113,7 @@ filters = {
     #
     "reverse": _reverse,
     "strip": _strip,
+    "trim": _trim,
     "replace": _replace,
     "re": _re,
     #
