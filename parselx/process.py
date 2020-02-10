@@ -28,22 +28,24 @@ def process(sel, queries, **kwargs):
 
     if isinstance(queries, list):
         if should_divide(queries):
-            divider = queries[0]
-            d_query = parse_query(divider)
-            return [
-                process(sel, queries[1:])
-                for sel in getattr(sel, d_query["lang"])(d_query["query"])
-            ]
+            scope = queries[0]
+            sp_query = parse_query(scope)
+            sels = getattr(sel, sp_query["lang"])(sp_query["query"])
+            if sp_query["meth"] == "getall":
+                return [
+                    process(sel, queries[1:])
+                    for sel in getattr(sel, sp_query["lang"])(sp_query["query"])
+                ]
+            return process(sels, queries[1:])
 
         query = queries[0]
         funcs = queries[1:]
         val = process(sel, query, **kwargs)
         return _process_by_funcs(val, funcs)
-    elif isinstance(queries, dict):
+    if isinstance(queries, dict):
         return {k: process(sel, v, **kwargs) for k, v in queries.items()}
-    else:
-        query = queries
-        return _parsel_one(sel, query, **kwargs)
+
+    return _parsel_one(sel, queries, **kwargs)
 
 
 def _process_by_funcs(val, funcs=None):
